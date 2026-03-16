@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -std=c11
 LDFLAGS = -lm
 
-TARGET = generate_wav
+TARGET = waveGen
 
-SRCS = main.c wav_header.c wav_sample_gen.c wav_file_gen.c
+SRCS = main.c wav_header.c wav_sample_gen.c wav_file_gen.c parser.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -13,7 +13,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
-%.o: %.c wav_header.h
+%.o: %.c %.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
