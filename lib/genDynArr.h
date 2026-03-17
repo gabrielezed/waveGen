@@ -1,5 +1,5 @@
-#ifndef GENDYNARR
-#define GENDYNARR
+#ifndef GENDYNARR_H
+#define GENDYNARR_H
 
 #include <stdlib.h>
 
