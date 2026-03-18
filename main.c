@@ -32,6 +32,17 @@ int main(/*int argc, char* argv[]*/){
 		printf("\n");
 	}
 	
+	if(frequencies.len == 0){
+		fprintf(stderr, "No valid frequencies found in file.\n");
+	}
+	
+	int freqPerSec = 2;
+	int audioLenght = frequencies.len / freqPerSec;
+	if(audioLenght == 0) audioLenght = 1;
+	
+	WavHeader header = createMonoHelper441_16(audioLenght);
+	wavFileGen(&header, audioLenght, &frequencies, freqPerSec, AMPLITUDE);
+	
 	DoubleMatrix_deep_free(&frequencies);
 	
 	/*
