@@ -7,10 +7,13 @@ uint32_t computeTotalSamples(WavHeader* header, int audioLength){
 	return (uint32_t)(header->Frequency * audioLength);
 }
 
-void deprecated_wavFileGen(WavHeader* header, int audioLength, double* freqs, int freqPerSec, int16_t amplitude){
+void wavFileGen(WavHeader* header, DoubleMatrix* mat, int notesPerSec, int16_t amplitude, char* outputName){
+	int audioLength = mat->len / notesPerSec;
+	if(audioLength == 0) audioLength = 1;
+	
 	uint32_t totalSamples = computeTotalSamples(header, audioLength);
 	
-	FILE* file = fopen("signal.wav", "wb");
+	FILE* file = fopen(outputName, "wb");
 	if(!file){
 		fprintf(stderr, "Error while opening file.\n");
 		exit(EXIT_FAILURE);
@@ -18,28 +21,7 @@ void deprecated_wavFileGen(WavHeader* header, int audioLength, double* freqs, in
 	
 	fwrite(header, sizeof(WavHeader), 1, file);
 	
-	
-	for(uint32_t i = 0; i < totalSamples; i++){
-		int16_t sample = computeSingleWaveSample(i, header->Frequency, freqs[(i / (header->Frequency / freqPerSec))], amplitude);
-		fwrite(&sample, sizeof(int16_t), 1, file);
-	}
-	
-	fclose(file);
-	printf("signal.wav generated correctly.\n");
-}
-
-void wavFileGen(WavHeader* header, int audioLength, DoubleMatrix* mat, int freqPerSec, int16_t amplitude){
-	uint32_t totalSamples = computeTotalSamples(header, audioLength);
-	
-	FILE* file = fopen("signal.wav", "wb");
-	if(!file){
-		fprintf(stderr, "Error while opening file.\n");
-		exit(EXIT_FAILURE);
-	}
-	
-	fwrite(header, sizeof(WavHeader), 1, file);
-	
-	uint32_t samplesPerFreqChunk = header->Frequency / freqPerSec;
+	uint32_t samplesPerFreqChunk = header->Frequency / notesPerSec;
 	
 	for(uint32_t i = 0; i < totalSamples; i++){
 		uint32_t rowIndex = i / samplesPerFreqChunk;
@@ -58,6 +40,6 @@ void wavFileGen(WavHeader* header, int audioLength, DoubleMatrix* mat, int freqP
 	}
 	
 	fclose(file);
-	printf("signal.wav generated correctly.\n");
+	printf("%s generated correctly.\n", outputName);
 	
 }
