@@ -38,7 +38,7 @@ int main(int argc, char** argv){
 	if(appConfig.verbose){
 		printf("--- Parsing Frequencies ---\n");
 		for(size_t i = 0; i < frequencies.len; i++){
-			printf("Riga %zu (lunghezza %zu): ", i, frequencies.data[i].len);
+			printf("Row %zu (%zu items): ", i, frequencies.data[i].len);
 			for(size_t j = 0; j < frequencies.data[i].len; j++){
 				printf("%f ", frequencies.data[i].data[j]);
 			}
