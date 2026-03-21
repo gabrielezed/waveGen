@@ -25,7 +25,6 @@ typedef struct{
 	
 } WavHeader;
 
-WavHeader createMonoHelper441_16(int audioLength);
 WavHeader createMonoHeader_16(int len, int notesPerSec, uint32_t frequency);
 
 #endif

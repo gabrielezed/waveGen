@@ -15,13 +15,6 @@ double computeWave(double freq, double t){
 }
 
 
-int16_t computeSingleWaveSample(uint32_t i, uint32_t sampleRate, double freq, int16_t amplitude){
-	
-	
-	return (int16_t)(computeWave(freq, computeT(i, sampleRate)) * amplitude);	
-}
-
-
 int16_t computeSample(uint32_t i, uint32_t sampleRate, double* freqs, size_t freqsNum, int16_t amplitude){
 	if(freqsNum == 0) return 0;
 	

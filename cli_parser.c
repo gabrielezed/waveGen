@@ -6,15 +6,14 @@
 
 
 
-//wip
 void helpMessage(){
 	printf("----------------------------wavGen----------------------------\n");
 	printf("| -i 'inputFile'  --> provide input file name                |\n");
 	printf("| -o 'outputFile' --> provide desired output file name       |\n");
-	printf("| -a 'amplitude' --> provide a numerical value               |\n");
+	printf("| -a 'amplitude' --> provide a numerical value 0 > n < 32767 |\n");
 	printf("| -n 'notes Per Seconds' --> how many notes do you want      |\n ");
 	printf("        to be played per seconds? Must be >0                 |\n");
-	printf("| -s 'sampleRate' --> provide desired sample rate            |\n");
+	printf("| -s 'sampleRate' --> provide desired sample rate > 0        |\n");
 	printf("| -v --> add this flag if you want to enter verbose mode     |");
 	printf("|-------------------------------------------------------------\n");
 	

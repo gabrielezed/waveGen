@@ -35,19 +35,6 @@ int main(int argc, char** argv){
 		return 1;
 	}
 	
-	/*
-	if(appConfig.verbose){
-		printf("--- Parsing Frequencies ---\n");
-		for(size_t i = 0; i < frequencies.len; i++){
-			printf("Row %zu (%zu items): ", i, frequencies.data[i].len);
-			for(size_t j = 0; j < frequencies.data[i].len; j++){
-				printf("%f ", frequencies.data[i].data[j]);
-			}
-			printf("\n");
-		}	
-	}
-	
-	*/
 	if(frequencies.len == 0){
 		fprintf(stderr, "No valid frequencies found in file.\n");
 	}
