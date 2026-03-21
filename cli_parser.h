@@ -11,7 +11,7 @@ typedef struct{
 	int amplitude;
 	int notesPerSec;
 	int sampleRate;
-	bool verbose;
+	bool isVerbose;
 	
 }AppConfig;
 

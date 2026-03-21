@@ -29,12 +29,13 @@ int main(int argc, char** argv){
 	DoubleMatrix frequencies;
 	DoubleMatrix_init(&frequencies);
 	
-	if(!parseJaggedFrequenciesFromFile(appConfig.inputFile, &frequencies)){
+	if(!parseJaggedFrequenciesFromFile(appConfig.inputFile, &frequencies, appConfig.isVerbose)){
 		fprintf(stderr, "Test failed: unable to open file %s\n", appConfig.inputFile);
 		DoubleMatrix_deep_free(&frequencies);
 		return 1;
 	}
 	
+	/*
 	if(appConfig.verbose){
 		printf("--- Parsing Frequencies ---\n");
 		for(size_t i = 0; i < frequencies.len; i++){
@@ -43,9 +44,10 @@ int main(int argc, char** argv){
 				printf("%f ", frequencies.data[i].data[j]);
 			}
 			printf("\n");
-	}	
-		
+		}	
 	}
+	
+	*/
 	if(frequencies.len == 0){
 		fprintf(stderr, "No valid frequencies found in file.\n");
 	}

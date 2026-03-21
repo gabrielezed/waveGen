@@ -30,7 +30,7 @@ void defaultConfig(AppConfig* appConfig){
 	appConfig->amplitude = 16000;
 	appConfig->notesPerSec = 2;
 	appConfig->sampleRate = 44100;
-	appConfig->verbose = false;
+	appConfig->isVerbose = false;
 	
 }
 
@@ -54,7 +54,7 @@ int parseArgument(int argc, char** argv, AppConfig* appConfig){
 				appConfig->sampleRate = atoi(optarg);
 				break;
 			case 'v':
-				appConfig->verbose = true;
+				appConfig->isVerbose = true;
 				break;
 			case 'h':
 				helpMessage();

@@ -1,9 +1,10 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <stdbool.h>
+
 #include "lib/wavGenTypes.h"
 
-int parseFrequenciesFromFile(const char* filename, DoubleArr* arr);
-int parseJaggedFrequenciesFromFile(const char* filename, DoubleMatrix* mat);
+int parseJaggedFrequenciesFromFile(const char* filename, DoubleMatrix* mat, bool isVerbose);
 
 #endif
