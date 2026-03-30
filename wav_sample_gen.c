@@ -3,7 +3,9 @@
 
 #define M_PI 3.14159265358979323846
 
-double computeT(uint32_t i, uint32_t sampleRate){
+
+//Deprecated functions that was used by old verison of computeSample
+/*double computeT(uint32_t i, uint32_t sampleRate){
 	
 	return (double)i / sampleRate;
 }
@@ -12,10 +14,11 @@ double computeT(uint32_t i, uint32_t sampleRate){
 double computeWave(double freq, double t){
 	
 	return sin(2.0 * M_PI * freq * t);
-}
+}*/
 
-
-int16_t computeSample(uint32_t i, uint32_t sampleRate, double* freqs, size_t freqsNum, int16_t amplitude){
+//Old version of computeSample without phase accumulation.
+//Produce the infamous POP
+/*int16_t computeSample(uint32_t i, uint32_t sampleRate, double* freqs, size_t freqsNum, int16_t amplitude){
 	if(freqsNum == 0) return 0;
 	
 	double sampleSum = 0;
@@ -23,6 +26,22 @@ int16_t computeSample(uint32_t i, uint32_t sampleRate, double* freqs, size_t fre
 	
 	for(size_t j = 0; j < freqsNum; j++){
 		sampleSum += computeWave(freqs[j], t);
+	}
+	
+	return (int16_t)((sampleSum / freqsNum) * amplitude);
+}*/
+
+int16_t computeSample(uint32_t sampleRate, double* freqs, size_t freqsNum, int16_t amplitude, double* phases){
+	if(freqsNum == 0) return 0;
+	
+	double sampleSum = 0;
+	
+	for(size_t j = 0; j < freqsNum; j++){
+		double phaseIncrement = (2.0 * M_PI * freqs[j]) / sampleRate;
+		
+		sampleSum += sin(phases[j]);
+		
+		if(phases[j] >= 2.0 * M_PI) phases[j] -= 2.0 * M_PI;
 	}
 	
 	return (int16_t)((sampleSum / freqsNum) * amplitude);

@@ -23,6 +23,13 @@ void wavFileGen(WavHeader* header, DoubleMatrix* mat, int notesPerSec, int16_t a
 	
 	uint32_t samplesPerFreqChunk = header->Frequency / notesPerSec;
 	
+	size_t maxPolyphony = 0;
+	for(size_t r = 0; r < mat->len; r++){
+		if(mat->data[r].len > maxPolyphony) maxPolyphony = mat->data[r].len;
+	}
+	
+	double* phases = (double*)calloc(maxPolyphony, sizeof(double));
+	
 	for(uint32_t i = 0; i < totalSamples; i++){
 		uint32_t rowIndex = i / samplesPerFreqChunk;
 		
@@ -34,11 +41,12 @@ void wavFileGen(WavHeader* header, DoubleMatrix* mat, int notesPerSec, int16_t a
 			currentLen = mat->data[rowIndex].len;
 		}
 		
-		int16_t sample = computeSample(i, header->Frequency, currentFreqs, currentLen, amplitude);
+		int16_t sample = computeSample(header->Frequency, currentFreqs, currentLen, amplitude, phases);
 		
 		fwrite(&sample, sizeof(int16_t), 1, file);
 	}
 	
+	free(phases);
 	fclose(file);
 	printf("%s generated correctly.\n", outputName);
 	
