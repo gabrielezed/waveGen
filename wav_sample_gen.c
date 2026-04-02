@@ -41,6 +41,8 @@ int16_t computeSample(uint32_t sampleRate, double* freqs, size_t freqsNum, int16
 		
 		sampleSum += sin(phases[j]);
 		
+		phases[j] += phaseIncrement;
+		
 		if(phases[j] >= 2.0 * M_PI) phases[j] -= 2.0 * M_PI;
 	}
 	
